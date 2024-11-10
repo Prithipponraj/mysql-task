@@ -1,13 +1,13 @@
-[*] Create the ecommerce database
+-- Create the ecommerce database
 
 > CREATE DATABASE ecommerce;
 
-[*] Use the ecommerce database
+-- Use the ecommerce database
 
 > USE ecommerce;
 
 
-[*] Create the customers table
+-- Create the customers table
 
 > CREATE TABLE customers (
     id INT AUTO_INCREMENT PRIMARY KEY,  
@@ -16,7 +16,7 @@
     address TEXT NOT NULL              
 );
 
-[*] Create the products table
+-- Create the products table
 
 > CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,  
@@ -25,7 +25,7 @@
     description TEXT NOT NULL             
 );
 
-[*] Create the orders table
+-- Create the orders table
 
 > CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,      
@@ -35,7 +35,7 @@
     FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE  
 );
 
-[*] Inserting sample data into the customers table
+-- Inserting sample data into the customers table
 
 > INSERT INTO customers (name, email, address) VALUES
 ('Edward Torphy', 'Idella_Koss@gmail.com', 'Gary'),
@@ -80,7 +80,7 @@
 ('Willie Langworth', 'Ervin_Marquardt44@yahoo.com', 'South Bryantland'),
 ('Paula Lockman', 'Julie_Wolf31@yahoo.com', 'West Alleneview');
 
-[*] Inserting sample data into the products table
+-- Inserting sample data into the products table
 
 > INSERT INTO products (name, price, description) VALUES
 ('Apple iPhone 14', 999.99, 'Latest model with A15 Bionic chip and improved camera capabilities.'),
@@ -123,7 +123,7 @@
 
 
 
-[*] 1 Query to get all customers who have placed an order in the last 30 days
+-- 1 Query to get all customers who have placed an order in the last 30 days
 
 > SELECT DISTINCT c.name, c.email, c.address
 FROM customers c
@@ -131,26 +131,26 @@ JOIN orders o ON c.id = o.customer_id
 WHERE o.order_date >= CURDATE() - INTERVAL 30 DAY;
 
 
-[*] 2 Query to get total amount of all orders placed by each customer
+-- 2 Query to get total amount of all orders placed by each customer
 
 > SELECT c.name, SUM(o.total_amount) AS total_spent
 FROM customers c
 JOIN orders o ON c.id = o.customer_id
 GROUP BY c.id;
 
-[*] 3 Query to update the price of Product C
+-- 3 Query to update the price of Product C
 
 > UPDATE products
 SET price = 45000
 WHERE name = 'Canon EOS R5';
 
-[*] 4 Query to add a 'discount' column to the products table
+-- 4 Query to add a 'discount' column to the products table
 
 > ALTER TABLE products
 ADD COLUMN discount DECIMAL(5,2) DEFAULT 0.00;
 
 
-[*] 5 Query to get the top 3 products with the highest price
+-- 5 Query to get the top 3 products with the highest price
 
 > SELECT name, price
 FROM products
@@ -158,7 +158,7 @@ ORDER BY price DESC
 LIMIT 3;
 
 
-[*] 6 Query to get the name of the customers who ordered Sony PlayStation 5
+-- 6 Query to get the name of the customers who ordered Sony PlayStation 5
 
 SELECT c.name
 FROM customers AS c
@@ -169,7 +169,7 @@ WHERE p.name = 'Sony PlayStation 5';
 
 
 
-[*] 7 Query to retrieve customer's name and order date for each order
+-- 7 Query to retrieve customer's name and order date for each order
 
 > SELECT c.name AS customer_name, o.order_date
 FROM customers AS c
@@ -177,14 +177,14 @@ JOIN orders AS o ON c.id = o.customers_id;
 
 
 
-[*] 8 Query to get orders with a total amount greater than 150
+-- 8 Query to get orders with a total amount greater than 150
 
 > SELECT * 
 FROM orders
 WHERE total_amount > 150.00;
 
 
-[*] 9 Create order_items table to store order details
+-- 9 Create order_items table to store order details
 
 > CREATE TABLE order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,        
@@ -197,10 +197,10 @@ WHERE total_amount > 150.00;
 );
 
 
-[*] Update orders table to reference order_items
-[*] (This involves removing any unnecessary columns from the orders table and updating the logic for data insertion)
+-- Update orders table to reference order_items
+-- (This involves removing any unnecessary columns from the orders table and updating the logic for data insertion)
 
-[*] Query to get the average total of all orders
+-- Query to get the average total of all orders
 
 >   SELECT AVG(total_amount) AS average_order_total
 FROM orders;
